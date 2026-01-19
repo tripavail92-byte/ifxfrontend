@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IFX Copy Hub Leaderboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008f77",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#0a0a0a",
+                        "surface-dark": "#171717",
+                        "border-dark": "#262626",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .glass-panel {
+            background: rgba(23, 23, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 glass-panel px-4 py-4 flex items-center justify-between border-b border-border-dark">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+</div>
+<h1 class="text-lg font-extrabold tracking-tight">IFX <span class="text-primary">Hub</span></h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-1 text-slate-400">search</button>
+<button class="material-symbols-outlined p-1 text-slate-400">tune</button>
+</div>
+</header>
+<!-- Tabs Navigation -->
+<nav class="px-4 py-2 flex border-b border-border-dark overflow-x-auto no-scrollbar gap-6">
+<a class="flex flex-col items-center justify-center border-b-2 border-primary pb-3 pt-2" href="#">
+<p class="text-sm font-bold text-white whitespace-nowrap">Leaderboard</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" href="#">
+<p class="text-sm font-bold whitespace-nowrap">My Portfolio</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" href="#">
+<p class="text-sm font-bold whitespace-nowrap">Activity</p>
+</a>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pb-32">
+<div class="px-4 py-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">Master Traders</h2>
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">30D Returns</span>
+</div>
+<!-- Leaderboard Grid -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Trader Card 1 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4 active:scale-[0.98] transition-transform">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-slate-800 bg-cover bg-center" data-alt="Portrait of a professional male trader" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0BSWEgkBvcIqGhS6QQXyD8ny4baPmmh5CO7nSDqUEfJiPh5TJsn2ljjcArcwGaWkJdWOQFxMoCMmmStvP1FUaY7cte8hJ3rLesGnNDlBQNbdDLd1Opovu9GLZTl2gj9KcB77IgcOkkGpEiyFu7RYkZJQajJKUOCHyVlk5OHM0Z0jasgL5IE6aolPlldo6b5NIzAnuJY7CC9Q1gJZsZaVRi4uaWGjhkZKSs_7pksSO6hcT3Bc039_QivHLZGqOiTPnaVkoYZpH2kf-')"></div>
+<div>
+<h3 class="font-bold text-white">AlphaTrader</h3>
+<div class="flex gap-2 mt-1">
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-primary/20 text-primary uppercase">Scalping</span>
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 uppercase">Trend</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-emerald-400 text-lg font-extrabold">+42.5%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">ROI (30D)</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-4 bg-black/20 rounded-lg p-3">
+<div class="text-center">
+<p class="text-white font-bold text-sm">68%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Win Rate</p>
+</div>
+<div class="text-center border-x border-slate-800">
+<p class="text-white font-bold text-sm">8.2%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Max DD</p>
+</div>
+<div class="text-center">
+<p class="text-white font-bold text-sm">1,240</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Copiers</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Risk Score</span>
+<div class="flex gap-0.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors">
+                            View Profile
+                        </button>
+</div>
+</div>
+<!-- Trader Card 2 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-slate-800 bg-cover bg-center" data-alt="Abstract geometric avatar for QuantEdge" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDDTQmlnq4Htp4qMQ3LJFXQntzBcdr8aN4XxqVQdoGEAP9gK1ZBxSl4B5PpL7IFIHTsWAxPvVAhyQMVjEhzlNiQaPIkgZXSw1iNUPl2sDbUYqmS8dYuAhUtbp-2gYGpAI0HRVkeaFrQFJ3fSJQ0B8HJX8D0N92Px9bXLPqZP4-1V7mR6ChTrklG5NjR3BcLStphL3ZtDfXoc9itQh-rOZmscflJoM4T1B5dUywFfXG3otewBePJcGTvfC97sVuDd6rP_4TPYn2iYvw6')"></div>
+<div>
+<h3 class="font-bold text-white">QuantEdge</h3>
+<div class="flex gap-2 mt-1">
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 uppercase">Swing</span>
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 uppercase">HFT</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-emerald-400 text-lg font-extrabold">+18.2%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">ROI (30D)</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-4 bg-black/20 rounded-lg p-3">
+<div class="text-center">
+<p class="text-white font-bold text-sm">55%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Win Rate</p>
+</div>
+<div class="text-center border-x border-slate-800">
+<p class="text-white font-bold text-sm">4.1%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Max DD</p>
+</div>
+<div class="text-center">
+<p class="text-white font-bold text-sm">850</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Copiers</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Risk Score</span>
+<div class="flex gap-0.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</div>
+<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg">
+                            View Profile
+                        </button>
+</div>
+</div>
+<!-- Trader Card 3 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex justify-between items-start mb-4">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-lg bg-slate-800 bg-cover bg-center" data-alt="Avatar of a trader called CryptoWhale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVifVMto3HXtCs4ozJ4x1xqJhlHg6Y2deZt-Lmrnj0Pl7yy4CeGlHwxDjhsyE3hUmDXjYJBbo4rBt-43v1jEdDZuye0j94nqoLTaFIM1kPtHMCplhiEWQtYG9KZ4qYBg08aRJK-owC-6mYg59z4pEgvK1b61Ozi0C2XTJuOovcPJT_Zmova6NZySwS_7w3_QOqDQ604gBxklr97_lMp1fIfDLlEoAG9QbHWTtC0Y9lV6WHuOpkyGGxrU9ke7dpLvELjMpf_Ighi851')"></div>
+<div>
+<h3 class="font-bold text-white">CryptoWhale</h3>
+<div class="flex gap-2 mt-1">
+<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 uppercase">Momentum</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<p class="text-emerald-400 text-lg font-extrabold">+8.4%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">ROI (30D)</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 mb-4 bg-black/20 rounded-lg p-3">
+<div class="text-center">
+<p class="text-white font-bold text-sm">72%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Win Rate</p>
+</div>
+<div class="text-center border-x border-slate-800">
+<p class="text-white font-bold text-sm">2.2%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Max DD</p>
+</div>
+<div class="text-center">
+<p class="text-white font-bold text-sm">3,110</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Copiers</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Risk Score</span>
+<div class="flex gap-0.5">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</div>
+<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg">
+                            View Profile
+                        </button>
+</div>
+</div>
+</div>
+<!-- Disclaimer Footer -->
+<div class="mt-8 px-4 text-center">
+<p class="text-[10px] text-slate-600 font-medium leading-relaxed">
+                    Past performance is not indicative of future results. Trading involves significant risk. Manual-first portfolio management is recommended for all retail investors.
+                </p>
+</div>
+</div>
+</main>
+<!-- Settings & Execution Modal (Drawer Concept) -->
+<div class="fixed inset-x-0 bottom-0 z-[60] glass-panel rounded-t-3xl shadow-2xl border-t border-slate-800">
+<!-- Handle -->
+<div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto my-3"></div>
+<div class="px-6 pb-10 pt-2 h-[70vh] overflow-y-auto no-scrollbar">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h2 class="text-xl font-extrabold text-white">Copy AlphaTrader</h2>
+<p class="text-xs text-slate-400 font-bold uppercase">Setup Copy Parameters</p>
+</div>
+<button class="material-symbols-outlined text-slate-400">close</button>
+</div>
+<!-- Equity Curve Placeholder -->
+<div class="mb-6 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 p-2 h-32 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+<!-- Placeholder SVG for Line Chart -->
+<svg class="w-full h-full stroke-primary fill-none stroke-2" viewbox="0 0 400 100">
+<path d="M0,80 Q50,75 80,60 T140,55 T200,40 T280,30 T340,15 T400,10" stroke-linecap="round"></path>
+</svg>
+<div class="absolute top-2 left-3">
+<span class="text-[10px] font-bold text-primary uppercase">Equity Growth</span>
+</div>
+</div>
+<!-- Copy Settings Form -->
+<form class="space-y-6">
+<!-- Copy Mode Toggle -->
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Copy Mode</label>
+<div class="grid grid-cols-2 gap-2 bg-slate-900 p-1 rounded-xl border border-slate-800">
+<button class="bg-primary text-white text-sm font-bold py-2.5 rounded-lg shadow-sm" type="button">Fixed Lot</button>
+<button class="text-slate-400 text-sm font-bold py-2.5 rounded-lg" type="button">Proportional</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Max Drawdown Stop -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Max DD Stop</label>
+<div class="relative">
+<input class="w-full bg-slate-900 border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:ring-primary focus:border-primary" type="text" value="15.0"/>
+<span class="absolute right-4 top-3.5 text-slate-500 font-bold text-sm">%</span>
+</div>
+</div>
+<!-- Max Single Trade -->
+<div class="space-y-2">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Fixed Lot Size</label>
+<div class="relative">
+<input class="w-full bg-slate-900 border-slate-800 rounded-xl px-4 py-3 text-white font-bold text-sm focus:ring-primary focus:border-primary" type="text" value="0.01"/>
+<span class="absolute right-4 top-3.5 text-slate-500 font-bold text-sm">LOT</span>
+</div>
+</div>
+</div>
+<!-- Allowed Symbols -->
+<div class="space-y-3">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Allowed Symbols</label>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 bg-primary/20 text-primary rounded-lg text-xs font-bold border border-primary/30 flex items-center gap-1">
+                            EURUSD <span class="material-symbols-outlined text-xs">close</span>
+</span>
+<span class="px-3 py-1.5 bg-primary/20 text-primary rounded-lg text-xs font-bold border border-primary/30 flex items-center gap-1">
+                            GBPUSD <span class="material-symbols-outlined text-xs">close</span>
+</span>
+<span class="px-3 py-1.5 bg-primary/20 text-primary rounded-lg text-xs font-bold border border-primary/30 flex items-center gap-1">
+                            XAUUSD <span class="material-symbols-outlined text-xs">close</span>
+</span>
+<button class="px-3 py-1.5 bg-slate-800 text-slate-400 rounded-lg text-xs font-bold flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-xs">add</span> Add
+                        </button>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="pt-4 flex gap-3">
+<button class="flex-1 bg-primary hover:bg-primary/90 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-primary/20" type="button">
+                        Start Copying
+                    </button>
+<button class="w-16 bg-slate-800 hover:bg-slate-700 text-slate-400 flex items-center justify-center rounded-xl" type="button">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Persistent Bottom Navigation -->
+<nav class="fixed bottom-0 inset-x-0 glass-panel border-t border-border-dark flex justify-around items-center py-3 px-6 z-[100]">
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[10px] font-bold uppercase">Markets</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill-[1]">group</span>
+<span class="text-[10px] font-bold uppercase">Copy Hub</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-[10px] font-bold uppercase">Trade</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</button>
+</nav>
+<script src="../../js/navigation.js"></script>
+</body></html>

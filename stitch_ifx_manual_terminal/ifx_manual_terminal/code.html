@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IFX Manual Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008f77",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#1a1a1a",
+                        "card-dark": "#252525",
+                        "accent-teal": "#008f77",
+                        "danger": "#ef4444",
+                        "success": "#34d399",
+                        "warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(37, 37, 37, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+        .sms-green-zone {
+            background: linear-gradient(180deg, rgba(0, 143, 119, 0.1) 0%, rgba(0, 143, 119, 0) 100%);
+            border-top: 1px solid rgba(0, 143, 119, 0.3);
+        }
+        .sms-red-zone {
+            background: linear-gradient(180deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0) 100%);
+            border-top: 1px solid rgba(239, 68, 68, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen pb-24">
+<!-- Sticky Topbar -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-white/5 px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">terminal</span>
+</div>
+<h1 class="text-sm font-extrabold tracking-tight uppercase">IFX Manual Terminal</h1>
+</div>
+<div class="flex items-center gap-2 bg-black/20 rounded-full px-2 py-1 border border-white/10">
+<span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+<span class="text-[10px] font-bold tracking-widest text-success uppercase">Live</span>
+</div>
+</header>
+<main class="p-4 space-y-4">
+<!-- Asset Header -->
+<div class="flex items-end justify-between px-1">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="text-2xl font-extrabold">BTC/USD</h2>
+<span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded">+2.45%</span>
+</div>
+<p class="text-sm font-medium text-slate-500">$64,281.40</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-slate-500 tracking-widest">Strategy</p>
+<p class="text-sm font-bold text-primary">SMS EXECUTION</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex gap-4 border-b border-white/5">
+<button class="tab-btn pb-2 border-b-2 border-primary text-sm font-bold text-primary" data-tab="terminal">Terminal</button>
+<button class="tab-btn pb-2 border-b-2 border-transparent text-sm font-bold text-slate-500" data-tab="history">History</button>
+<button class="tab-btn pb-2 border-b-2 border-transparent text-sm font-bold text-slate-500" data-tab="metrics">Metrics</button>
+</div>
+<!-- Chart Container -->
+<div class="tab-content" id="terminal-content">
+<div class="glass-card rounded-xl overflow-hidden aspect-video relative flex flex-col">
+<div class="absolute inset-0 flex flex-col justify-between p-4 pointer-events-none z-10">
+<div class="sms-red-zone h-12 rounded-lg border-b border-danger/30 flex items-center px-3">
+<span class="text-[8px] font-bold text-danger uppercase tracking-tighter">RED SMS ZONE • SELL BIAS</span>
+</div>
+<div class="sms-green-zone h-12 rounded-lg border-b border-primary/30 flex items-center px-3">
+<span class="text-[8px] font-bold text-primary uppercase tracking-tighter">GREEN SMS ZONE • BUY BIAS</span>
+</div>
+</div>
+<canvas id="priceChart" class="w-full h-full"></canvas>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-center z-10 pointer-events-none">
+<span class="text-[10px] font-semibold text-slate-400">Green SMS / Red SMS zones only</span>
+<div class="flex gap-1">
+<span class="w-1 h-4 bg-slate-700"></span>
+<span class="w-1 h-6 bg-primary"></span>
+<span class="w-1 h-3 bg-slate-700"></span>
+<span class="w-1 h-5 bg-primary"></span>
+</div>
+</div>
+</div>
+<!-- Limits Card -->
+<div class="glass-card rounded-xl p-3 flex justify-around border-primary/20 bg-primary/5">
+<div class="text-center">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Signals</p>
+<p class="text-sm font-extrabold">0 / 2</p>
+</div>
+<div class="w-px h-8 bg-white/5"></div>
+<div class="text-center">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">SL Hits</p>
+<p class="text-sm font-extrabold text-danger">0 / 2</p>
+</div>
+<div class="w-px h-8 bg-white/5"></div>
+<div class="text-center">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">TP Hits</p>
+<p class="text-sm font-extrabold text-success">0 / 1</p>
+</div>
+</div>
+<!-- Trade Ticket -->
+<section class="glass-card rounded-xl p-4 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Trade Ticket</h3>
+<div class="flex bg-black/40 p-0.5 rounded-lg border border-white/5">
+<button class="px-3 py-1 text-[10px] font-bold rounded-md bg-primary text-white">MARKET</button>
+<button class="px-3 py-1 text-[10px] font-bold rounded-md text-slate-500">LIMIT</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Entry Price</label>
+<input class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm font-bold focus:border-primary outline-none" type="text" value="64,281.40"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Risk Mode</label>
+<div class="flex h-[38px] bg-black/40 border border-white/10 rounded-lg overflow-hidden p-1">
+<button class="flex-1 text-[10px] font-bold bg-white/5 rounded">%</button>
+<button class="flex-1 text-[10px] font-bold text-slate-500">$</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Stop Loss</label>
+<input class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm font-bold focus:border-danger outline-none" placeholder="Price" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-slate-500 uppercase ml-1">Take Profit</label>
+<input class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm font-bold focus:border-success outline-none" placeholder="Price" type="text"/>
+</div>
+</div>
+</section>
+<!-- IFX Coach Checklist -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">IFX Coach Safety</h3>
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded" id="coach-status">5/8 PASSED</span>
+</div>
+<div class="space-y-2">
+<!-- Locked Condition: SetupState -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success text-lg">check_circle</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">SetupState</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">Algorithmic alignment confirmed</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">lock</span>
+</div>
+
+<!-- SingleActiveTradeCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between" id="single-active-trade">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success text-lg condition-icon">check_circle</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">SingleActiveTrade</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">Only one active signal per setup</p>
+</div>
+</div>
+<select class="bg-black/40 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] font-bold text-center focus:border-primary outline-none w-24" id="single-active-select">
+<option value="1">1 Signal</option>
+<option value="2">2 Signals</option>
+<option value="3">3 Signals</option>
+<option value="unlimited">Unlimited</option>
+</select>
+</div>
+
+<!-- NewsFilterCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between border-primary/40 bg-primary/5" id="news-filter">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-danger text-lg condition-icon">cancel</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide text-primary">NewsFilter</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">Block signals during news (T-5 to T+15 min)</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer" id="news-filter-toggle" checked/>
+<div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+
+<!-- TargetPriceCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between" id="target-price">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-danger text-lg condition-icon">error</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">TargetPrice</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">Price must be in valid range for entry</p>
+</div>
+</div>
+<input class="w-24 bg-black/40 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] font-bold text-center focus:border-primary outline-none" type="number" id="target-price-input" value="64281.40" step="0.01"/>
+</div>
+
+<!-- DuplicatePreventionCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between" id="duplicate-prevention">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success text-lg condition-icon">check_circle</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">DuplicatePrevention</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">No duplicate signals for same candle</p>
+</div>
+</div>
+<select class="bg-black/40 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] font-bold text-center focus:border-primary outline-none w-24" id="duplicate-select">
+<option value="1">1 Signal</option>
+<option value="2">2 Signals</option>
+<option value="3">3 Signals</option>
+<option value="unlimited">Unlimited</option>
+</select>
+</div>
+
+<!-- StopLossCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between" id="stop-loss">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-warning text-lg condition-icon">warning</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">StopLoss</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">Calculated from structure (manual override)</p>
+</div>
+</div>
+<input class="w-24 bg-black/40 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] font-bold text-center focus:border-danger outline-none" type="number" id="stop-loss-input" placeholder="Auto" step="0.01"/>
+</div>
+
+<!-- RiskRewardCondition -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between border-primary/40" id="risk-reward">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-danger text-lg condition-icon">error</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">RiskReward</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">R:R ratio must be >= minimum</p>
+</div>
+</div>
+<input class="w-20 bg-black/40 border border-white/10 rounded-lg px-2 py-1.5 text-[10px] font-bold text-center focus:border-primary outline-none" type="number" id="risk-reward-input" value="1.0" step="0.1" min="0.1"/>
+</div>
+
+<!-- Locked Condition: PreLiveGuard -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-success text-lg">check_circle</span>
+<div>
+<p class="text-xs font-bold uppercase tracking-wide">PreLiveGuard</p>
+<p class="text-[9px] text-slate-500 uppercase tracking-tight">System health normal</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm">lock</span>
+</div>
+</div>
+</section>
+<!-- Execution Area -->
+<div class="pt-4 pb-8 space-y-4">
+<div class="bg-danger/10 border border-danger/20 rounded-xl p-3 flex items-center gap-3" id="execution-warning">
+<span class="material-symbols-outlined text-danger">warning</span>
+<div>
+<p class="text-[10px] font-extrabold text-danger uppercase tracking-tight">Execution Locked</p>
+<p class="text-[10px] text-slate-400" id="execution-message">3 conditions failing in IFX Coach checklist.</p>
+</div>
+</div>
+<button class="w-full bg-primary/30 text-white/50 py-4 rounded-xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 cursor-not-allowed" disabled="" id="place-trade-btn">
+<span class="material-symbols-outlined">lock_open</span>
+                Place Trade
+            </button>
+</div>
+</div>
+
+<!-- History Tab Content -->
+<div class="tab-content hidden" id="history-content">
+<div class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Trade History</h3>
+<div class="flex gap-2">
+<button class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded">All</button>
+<button class="text-[10px] font-bold text-slate-500 px-2 py-1 rounded">Today</button>
+<button class="text-[10px] font-bold text-slate-500 px-2 py-1 rounded">Week</button>
+</div>
+</div>
+<div class="space-y-2">
+<!-- Trade History Item 1 -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-success">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-bold">BTC/USD • BUY</p>
+<p class="text-[9px] text-slate-500 uppercase">Entry: 64,200 • Exit: 65,800</p>
+<p class="text-[9px] text-slate-500">Oct 24, 2024 • 14:32</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+$1,245.50</p>
+<p class="text-[9px] text-slate-500">R:R 1:2.4</p>
+</div>
+</div>
+<!-- Trade History Item 2 -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-danger/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-danger">trending_down</span>
+</div>
+<div>
+<p class="text-xs font-bold">EUR/USD • SELL</p>
+<p class="text-[9px] text-slate-500 uppercase">Entry: 1.0845 • Exit: 1.0890</p>
+<p class="text-[9px] text-slate-500">Oct 23, 2024 • 09:15</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-danger">-$420.00</p>
+<p class="text-[9px] text-slate-500">R:R 1:0.8</p>
+</div>
+</div>
+<!-- Trade History Item 3 -->
+<div class="glass-card rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-success">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-bold">XAU/USD • BUY</p>
+<p class="text-[9px] text-slate-500 uppercase">Entry: 2042.45 • Exit: 2055.10</p>
+<p class="text-[9px] text-slate-500">Oct 22, 2024 • 16:48</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+$890.25</p>
+<p class="text-[9px] text-slate-500">R:R 1:3.2</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Metrics Tab Content -->
+<div class="tab-content hidden" id="metrics-content">
+<div class="space-y-4">
+<!-- Performance Metrics Grid -->
+<div class="grid grid-cols-2 gap-3">
+<div class="glass-card rounded-xl p-4">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Win Rate</p>
+<p class="text-2xl font-extrabold text-success">68.5%</p>
+<p class="text-[9px] text-slate-500 mt-1">+2.1% this week</p>
+</div>
+<div class="glass-card rounded-xl p-4">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Avg R:R</p>
+<p class="text-2xl font-extrabold">1:2.4</p>
+<p class="text-[9px] text-slate-500 mt-1">Target: 1:2.0</p>
+</div>
+<div class="glass-card rounded-xl p-4">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Total Trades</p>
+<p class="text-2xl font-extrabold">142</p>
+<p class="text-[9px] text-slate-500 mt-1">This month</p>
+</div>
+<div class="glass-card rounded-xl p-4">
+<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Net PnL</p>
+<p class="text-2xl font-extrabold text-success">+$12,450</p>
+<p class="text-[9px] text-slate-500 mt-1">+12.4% ROI</p>
+</div>
+</div>
+<!-- Equity Curve Chart -->
+<div class="glass-card rounded-xl p-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Equity Curve</h3>
+<div class="flex gap-1">
+<button class="px-2 py-1 text-[9px] font-bold bg-primary text-white rounded">7D</button>
+<button class="px-2 py-1 text-[9px] font-bold text-slate-500 rounded">30D</button>
+<button class="px-2 py-1 text-[9px] font-bold text-slate-500 rounded">90D</button>
+</div>
+</div>
+<canvas id="equityChart" class="w-full" style="height: 200px;"></canvas>
+</div>
+<!-- Strategy Performance -->
+<div class="glass-card rounded-xl p-4">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Strategy Performance</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs font-bold">SMS Execution</p>
+<p class="text-[9px] text-slate-500">Primary strategy</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+8.2%</p>
+<p class="text-[9px] text-slate-500">Win: 45 | Loss: 21</p>
+</div>
+</div>
+<div class="h-px bg-white/5"></div>
+<div class="flex items-center justify-between">
+<div>
+<p class="text-xs font-bold">Copy Trading</p>
+<p class="text-[9px] text-slate-500">AlphaTrader</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+4.3%</p>
+<p class="text-[9px] text-slate-500">Win: 32 | Loss: 18</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 glass-card border-t border-white/5 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">terminal</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Terminal</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Copy Hub</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="text-[9px] font-bold uppercase tracking-tighter">Settings</span>
+</button>
+</nav>
+<script src="../../js/navigation.js"></script>
+<script>
+// IFX Coach Safety Conditions Manager
+(function() {
+    'use strict';
+    
+    // Condition states
+    const conditions = {
+        setupState: { passed: true, locked: true },
+        singleActiveTrade: { passed: true, value: 1 },
+        newsFilter: { passed: false, enabled: true },
+        targetPrice: { passed: false, value: 64281.40 },
+        duplicatePrevention: { passed: true, value: 1 },
+        stopLoss: { passed: true, value: null },
+        riskReward: { passed: false, value: 1.0 },
+        preLiveGuard: { passed: true, locked: true }
+    };
+    
+    // Update condition visual state
+    function updateConditionState(id, passed) {
+        const condition = document.getElementById(id);
+        if (!condition) return;
+        
+        const icon = condition.querySelector('.condition-icon');
+        const card = condition;
+        
+        if (passed) {
+            icon.textContent = 'check_circle';
+            icon.className = 'material-symbols-outlined text-success text-lg condition-icon';
+            card.classList.remove('border-danger/40', 'bg-danger/5');
+            card.classList.add('border-primary/20');
+        } else {
+            icon.textContent = 'cancel';
+            icon.className = 'material-symbols-outlined text-danger text-lg condition-icon';
+            card.classList.remove('border-primary/20');
+            card.classList.add('border-danger/40', 'bg-danger/5');
+        }
+    }
+    
+    // Calculate and update status
+    function updateStatus() {
+        const passed = Object.values(conditions).filter(c => c.passed).length;
+        const total = Object.keys(conditions).length;
+        const failed = total - passed;
+        
+        const statusEl = document.getElementById('coach-status');
+        if (statusEl) {
+            statusEl.textContent = `${passed}/${total} PASSED`;
+            statusEl.className = failed > 0 
+                ? 'text-[10px] font-bold text-danger px-2 py-0.5 bg-danger/10 rounded'
+                : 'text-[10px] font-bold text-success px-2 py-0.5 bg-success/10 rounded';
+        }
+        
+        // Update execution button
+        const btn = document.getElementById('place-trade-btn');
+        const warning = document.getElementById('execution-warning');
+        const message = document.getElementById('execution-message');
+        
+        if (failed === 0) {
+            if (btn) {
+                btn.disabled = false;
+                btn.className = 'w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 transition-all cursor-pointer';
+            }
+            if (warning) {
+                warning.className = 'bg-success/10 border border-success/20 rounded-xl p-3 flex items-center gap-3';
+                warning.querySelector('.material-symbols-outlined').textContent = 'check_circle';
+                warning.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-success';
+                if (message) {
+                    message.textContent = 'All conditions passed. Ready to execute.';
+                    message.className = 'text-[10px] text-success';
+                }
+            }
+        } else {
+            if (btn) {
+                btn.disabled = true;
+                btn.className = 'w-full bg-primary/30 text-white/50 py-4 rounded-xl font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 cursor-not-allowed';
+            }
+            if (warning) {
+                warning.className = 'bg-danger/10 border border-danger/20 rounded-xl p-3 flex items-center gap-3';
+                warning.querySelector('.material-symbols-outlined').textContent = 'warning';
+                warning.querySelector('.material-symbols-outlined').className = 'material-symbols-outlined text-danger';
+                if (message) {
+                    message.textContent = `${failed} condition${failed > 1 ? 's' : ''} failing in IFX Coach checklist.`;
+                    message.className = 'text-[10px] text-slate-400';
+                }
+            }
+        }
+    }
+    
+    // Validate conditions
+    function validateConditions() {
+        // SingleActiveTrade - always passes (user can set value)
+        conditions.singleActiveTrade.passed = true;
+        
+        // NewsFilter - passes if enabled
+        conditions.newsFilter.passed = conditions.newsFilter.enabled;
+        
+        // TargetPrice - validate against current price (mock: 64281.40)
+        const currentPrice = 64281.40;
+        const targetPrice = parseFloat(conditions.targetPrice.value);
+        const priceRange = 100; // ±100 USD range
+        conditions.targetPrice.passed = Math.abs(targetPrice - currentPrice) <= priceRange;
+        
+        // DuplicatePrevention - always passes (user can set value)
+        conditions.duplicatePrevention.passed = true;
+        
+        // StopLoss - passes if set or auto
+        conditions.stopLoss.passed = true; // Always passes, user can override
+        
+        // RiskReward - must be >= 1.0
+        conditions.riskReward.passed = parseFloat(conditions.riskReward.value) >= 1.0;
+        
+        // Update all visual states
+        updateConditionState('single-active-trade', conditions.singleActiveTrade.passed);
+        updateConditionState('news-filter', conditions.newsFilter.passed);
+        updateConditionState('target-price', conditions.targetPrice.passed);
+        updateConditionState('duplicate-prevention', conditions.duplicatePrevention.passed);
+        updateConditionState('stop-loss', conditions.stopLoss.passed);
+        updateConditionState('risk-reward', conditions.riskReward.passed);
+        
+        updateStatus();
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // SingleActiveTrade select
+        const singleActiveSelect = document.getElementById('single-active-select');
+        if (singleActiveSelect) {
+            singleActiveSelect.addEventListener('change', function() {
+                conditions.singleActiveTrade.value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                validateConditions();
+            });
+        }
+        
+        // NewsFilter toggle
+        const newsFilterToggle = document.getElementById('news-filter-toggle');
+        if (newsFilterToggle) {
+            newsFilterToggle.addEventListener('change', function() {
+                conditions.newsFilter.enabled = this.checked;
+                validateConditions();
+            });
+        }
+        
+        // TargetPrice input
+        const targetPriceInput = document.getElementById('target-price-input');
+        if (targetPriceInput) {
+            targetPriceInput.addEventListener('input', function() {
+                conditions.targetPrice.value = parseFloat(this.value) || 0;
+                validateConditions();
+            });
+        }
+        
+        // DuplicatePrevention select
+        const duplicateSelect = document.getElementById('duplicate-select');
+        if (duplicateSelect) {
+            duplicateSelect.addEventListener('change', function() {
+                conditions.duplicatePrevention.value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                validateConditions();
+            });
+        }
+        
+        // StopLoss input
+        const stopLossInput = document.getElementById('stop-loss-input');
+        if (stopLossInput) {
+            stopLossInput.addEventListener('input', function() {
+                conditions.stopLoss.value = this.value ? parseFloat(this.value) : null;
+                validateConditions();
+            });
+        }
+        
+        // RiskReward input
+        const riskRewardInput = document.getElementById('risk-reward-input');
+        if (riskRewardInput) {
+            riskRewardInput.addEventListener('input', function() {
+                conditions.riskReward.value = parseFloat(this.value) || 0;
+                validateConditions();
+            });
+        }
+        
+        // Initial validation
+        validateConditions();
+    });
+})();
+
+// Tab Switching
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Update button states
+                tabButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'text-primary');
+                    b.classList.add('border-transparent', 'text-slate-500');
+                });
+                this.classList.remove('border-transparent', 'text-slate-500');
+                this.classList.add('border-primary', 'text-primary');
+                
+                // Show/hide content
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                const targetContent = document.getElementById(targetTab + '-content');
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+            });
+        });
+    });
+})();
+
+// Chart Initialization
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Price Chart
+        const priceCtx = document.getElementById('priceChart');
+        if (priceCtx) {
+            const priceData = [];
+            const labels = [];
+            let basePrice = 64200;
+            
+            for (let i = 0; i < 100; i++) {
+                labels.push('');
+                basePrice += (Math.random() - 0.5) * 200;
+                priceData.push(basePrice);
+            }
+            
+            new Chart(priceCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'BTC/USD',
+                        data: priceData,
+                        borderColor: '#008f77',
+                        backgroundColor: 'rgba(0, 143, 119, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    scales: {
+                        x: {
+                            display: false,
+                            grid: { display: false }
+                        },
+                        y: {
+                            display: false,
+                            grid: { 
+                                display: true,
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false
+                    }
+                }
+            });
+        }
+        
+        // Equity Chart
+        const equityCtx = document.getElementById('equityChart');
+        if (equityCtx) {
+            const equityData = [];
+            const equityLabels = [];
+            let baseEquity = 30000;
+            
+            for (let i = 0; i < 30; i++) {
+                equityLabels.push('Day ' + (i + 1));
+                baseEquity += (Math.random() - 0.3) * 500;
+                equityData.push(Math.max(30000, baseEquity));
+            }
+            
+            new Chart(equityCtx, {
+                type: 'line',
+                data: {
+                    labels: equityLabels,
+                    datasets: [{
+                        label: 'Equity',
+                        data: equityData,
+                        borderColor: '#008f77',
+                        backgroundColor: 'rgba(0, 143, 119, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(37, 37, 37, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#008f77',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { 
+                                display: false,
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 9 }
+                            }
+                        },
+                        y: {
+                            grid: { 
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#64748b',
+                                font: { size: 9 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+})();
+</script>
+<script src="../../js/navigation.js"></script>
+</body></html>

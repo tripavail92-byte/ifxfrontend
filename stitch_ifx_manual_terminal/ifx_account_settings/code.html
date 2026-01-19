@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IFX Account Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008f77",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#0a0a0a",
+                        "card-dark": "#161616",
+                        "border-dark": "#262626",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .glass-card {
+            background: rgba(22, 22, 22, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .emergency-glow {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="flex items-center p-4 justify-between max-w-md mx-auto">
+<div class="flex size-10 items-center justify-center rounded-full bg-slate-200 dark:bg-card-dark text-primary cursor-pointer">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">IFX Settings</h2>
+<div class="flex size-10 items-center justify-center rounded-full bg-slate-200 dark:bg-card-dark text-primary cursor-pointer">
+<span class="material-symbols-outlined">help_outline</span>
+</div>
+</div>
+</header>
+<main class="max-w-md mx-auto px-4 space-y-6">
+<!-- Profile Header Bento -->
+<section class="glass-card rounded-2xl p-5 flex items-center gap-4 mt-2">
+<div class="relative">
+<div class="size-20 rounded-full bg-cover bg-center border-2 border-primary/30" data-alt="Professional male portrait for trading profile" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYKV1GoXefGYbzH3QPgn7_X4nvmFzqcNnUfsqch6jAwgFY2wwG1SpmajEK3APgOzEc9ZaB8hzSXM77gAWwuKVofeLEFijn0-KJteaQJG50LdSf9PQ8qvW96GPxCHBDMb4llh2wf6MFPsOkFzCwvXcOXQ-clGFKXB9UlCwDvXTlFkSdBfggJwHdh8ijPmx53ic2uQmhnygYfSLMewv9w8jnnOqpNt8_9DhVoJ5U8TCUAS02zB2_8aif6V_mus8xxJ3CXzJhjTxzInV1');">
+</div>
+<div class="absolute bottom-0 right-0 size-6 bg-primary rounded-full border-4 border-card-dark flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-white">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-xl font-extrabold leading-tight">Alex Thompson</p>
+<p class="text-primary text-sm font-medium">Pro Tier Account</p>
+<p class="text-slate-400 text-xs mt-1">alex.t@ifx-trading.com</p>
+</div>
+<button class="text-primary">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</section>
+<!-- Emergency Stop (Priority Module) -->
+<section class="bg-red-500/10 border border-red-500/20 rounded-2xl p-5 emergency-glow">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-red-500 text-white p-2 rounded-lg">
+<span class="material-symbols-outlined">gpp_maybe</span>
+</div>
+<div>
+<h3 class="font-bold text-red-500">Emergency Stop</h3>
+<p class="text-xs text-red-400/80">Pause all active positions &amp; bots</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-14 h-8 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-red-600"></div>
+</label>
+</div>
+</section>
+<!-- Broker Connection -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 px-1 mb-3">Broker Connection</h3>
+<div class="glass-card rounded-2xl overflow-hidden divide-y divide-border-dark">
+<div class="flex items-center gap-4 p-4">
+<div class="size-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div class="flex-1">
+<p class="font-semibold text-base leading-none">MetaTrader 5</p>
+<div class="flex items-center gap-1.5 mt-1.5">
+<span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+<p class="text-xs text-green-500 font-medium uppercase tracking-tighter">Status: Connected</p>
+</div>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors">
+                        RECONNECT
+                    </button>
+</div>
+</div>
+</section>
+<!-- Manual Preferences -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 px-1 mb-3">Manual Trading</h3>
+<div class="grid grid-cols-2 gap-3">
+<div class="glass-card rounded-2xl p-4 flex flex-col gap-2">
+<span class="text-xs font-bold text-slate-400 uppercase">Default Risk</span>
+<div class="flex items-end gap-1">
+<input class="bg-transparent border-none p-0 text-2xl font-bold w-full focus:ring-0 text-primary" type="number" value="2.5"/>
+<span class="text-lg font-bold text-slate-500 mb-0.5">%</span>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-4 flex flex-col gap-2">
+<span class="text-xs font-bold text-slate-400 uppercase">SL/TP Mode</span>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-bold">Pips</span>
+<span class="material-symbols-outlined text-primary">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Copy Preferences -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 px-1 mb-3">Copy Preferences</h3>
+<div class="glass-card rounded-2xl overflow-hidden divide-y divide-border-dark">
+<div class="flex items-center justify-between p-4">
+<div class="flex flex-col">
+<span class="text-base font-semibold">Max Drawdown</span>
+<span class="text-xs text-slate-500 italic">Equity protection threshold</span>
+</div>
+<div class="flex items-center gap-2 bg-slate-100 dark:bg-border-dark rounded-lg px-3 py-1.5">
+<input class="bg-transparent border-none p-0 text-sm font-bold w-8 text-center focus:ring-0" type="number" value="15"/>
+<span class="text-xs font-bold text-slate-500">%</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex flex-col">
+<span class="text-base font-semibold">Trades Per Day</span>
+<span class="text-xs text-slate-500 italic">Volume limit per session</span>
+</div>
+<div class="flex items-center gap-2 bg-slate-100 dark:bg-border-dark rounded-lg px-3 py-1.5">
+<input class="bg-transparent border-none p-0 text-sm font-bold w-8 text-center focus:ring-0" type="number" value="10"/>
+<span class="text-xs font-bold text-slate-500">MAX</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications -->
+<section>
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-500 px-1 mb-3">Alerts &amp; Hooks</h3>
+<div class="glass-card rounded-2xl overflow-hidden divide-y divide-border-dark">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<span class="font-medium">Email Alerts</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-[#5865F2]/10 text-[#5865F2] flex items-center justify-center">
+<span class="material-symbols-outlined">webhook</span>
+</div>
+<span class="font-medium">Discord Webhooks</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Bottom Navigation (iOS Style) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl border-t border-border-dark pb-8 pt-3 px-6 z-50">
+<div class="max-w-md mx-auto flex justify-between items-center">
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">TERMINAL</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold">COPY</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold">WALLET</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="text-[10px] font-bold">DATA</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">settings</span>
+<span class="text-[10px] font-bold">SETTINGS</span>
+</div>
+</div>
+</nav>
+<script src="../../js/navigation.js"></script>
+</body></html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>IFX Trading Platform - Interactive Prototype</title>
+    <meta name="description" content="Professional trading platform prototype showcasing manual trading, copy trading, wallet management, and analytics."/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008f77",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#1a1a1a",
+                        "card-dark": "#252525",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(37, 37, 37, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0, 143, 119, 0.1) 0%, rgba(0, 143, 119, 0) 100%);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 143, 119, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+    <!-- Hero Section -->
+    <section class="hero-gradient border-b border-white/5 pb-12 pt-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="fade-in">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30">
+                        <span class="material-symbols-outlined text-3xl">terminal</span>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-2">IFX Trading Platform</h1>
+                        <p class="text-lg text-slate-400">Professional Trading Solution • Interactive Prototype</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-4 mb-8">
+                    <div class="flex items-center gap-2 bg-black/20 rounded-full px-4 py-2 border border-white/10">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs font-bold tracking-widest text-green-500 uppercase">Live Prototype</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <span class="material-symbols-outlined text-lg">devices</span>
+                        <span>7 Interactive Screens</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <span class="material-symbols-outlined text-lg">palette</span>
+                        <span>Dark Mode UI</span>
+                    </div>
+                </div>
+                <p class="text-slate-300 max-w-2xl leading-relaxed">
+                    Experience the complete IFX Trading Platform prototype featuring manual trading terminals, 
+                    copy trading hub, wallet management, performance analytics, and comprehensive system controls. 
+                    All screens are fully interactive and ready for client presentation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Core Trading Features -->
+        <section class="mb-12 slide-up">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+                <h2 class="text-xl font-bold text-slate-400 uppercase tracking-widest">Core Features</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Manual Terminal -->
+                <a href="stitch_ifx_manual_terminal/ifx_manual_terminal/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">terminal</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Manual Terminal</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Primary Feature</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            SMS execution terminal with real-time chart visualization, IFX Coach safety checklist, 
+                            and intelligent trade execution controls.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Copy Hub Leaderboard -->
+                <a href="stitch_ifx_manual_terminal/ifx_copy_hub_leaderboard/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">leaderboard</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Copy Hub</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Social Trading</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            Master traders leaderboard with performance metrics, risk scoring, and seamless 
+                            copy trading setup interface.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Performance Dashboard -->
+                <a href="stitch_ifx_manual_terminal/ifx_performance_dashboard/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">monitoring</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Performance</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Analytics</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            Comprehensive trading metrics, equity curve visualization, and detailed analysis 
+                            of manual and copy trades.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Management & Settings -->
+        <section class="mb-12 slide-up" style="animation-delay: 0.1s">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+                <h2 class="text-xl font-bold text-slate-400 uppercase tracking-widest">Management</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Custodial Wallet -->
+                <a href="stitch_ifx_manual_terminal/ifx_custodial_wallet/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Custodial Wallet</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Finance</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            Complete wallet management with balance tracking, crypto/fiat deposits, 
+                            withdrawals, and transaction history.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Account Settings -->
+                <a href="stitch_ifx_manual_terminal/ifx_account_settings/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">settings</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Account Settings</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Configuration</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            User profile management, broker connection, trading preferences, 
+                            and notification settings.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Admin Backoffice -->
+                <a href="stitch_ifx_manual_terminal/ifx_admin_backoffice/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">Admin Backoffice</h3>
+                                <span class="text-xs font-bold text-red-500 bg-red-500/10 px-2 py-1 rounded">Admin Only</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            System monitoring, exposure management, deposit approvals, 
+                            and emergency controls.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Training & Onboarding -->
+        <section class="slide-up" style="animation-delay: 0.2s">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+                <h2 class="text-xl font-bold text-slate-400 uppercase tracking-widest">Education</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- System Training -->
+                <a href="stitch_ifx_manual_terminal/ifx_system_training_onboarding/code.html" 
+                   class="glass-card rounded-2xl p-6 card-hover cursor-pointer group relative overflow-hidden md:col-span-1 lg:col-span-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16"></div>
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+                                <span class="material-symbols-outlined text-2xl">school</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold mb-1">System Training</h3>
+                                <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">Onboarding</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            Interactive training modules for SMS zones, risk management, 
+                            and platform best practices.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5">
+                            <div class="flex items-center gap-2 text-primary text-sm font-bold">
+                                <span>Explore Screen</span>
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/20"></span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 mt-16 py-8">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">terminal</span>
+                    </div>
+                    <div>
+                        <p class="font-bold">IFX Trading Platform</p>
+                        <p class="text-xs text-slate-500">Interactive Prototype v1.0</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-slate-400">
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">check_circle</span>
+                        <span>7 Screens</span>
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">palette</span>
+                        <span>Dark UI</span>
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">devices</span>
+                        <span>Responsive</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add entrance animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.slide-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

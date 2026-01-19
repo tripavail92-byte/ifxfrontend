@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IFX Performance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#008f77",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#1a1a1a",
+                        "card-dark": "#252525",
+                        "card-light": "#ffffff",
+                        "success": "#34D399",
+                        "danger": "#EF4444"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-header {
+            backdrop-filter: blur(10px);
+            background-color: rgba(26, 26, 26, 0.8);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-50 glass-header border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center p-4 justify-between max-w-lg mx-auto">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</div>
+<div>
+<h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">IFX Terminal</h2>
+<h1 class="text-lg font-extrabold leading-tight">Performance</h1>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-card-dark text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="relative size-10 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-card-dark text-gray-600 dark:text-gray-300">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-background-dark"></span>
+</button>
+</div>
+</div>
+</div>
+<main class="max-w-lg mx-auto pb-24">
+<!-- Key Metrics Carousel -->
+<div class="overflow-x-auto hide-scrollbar flex gap-4 p-4 mt-2">
+<div class="min-w-[160px] flex-1 flex flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm">
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest">Net PnL</p>
+<p class="text-2xl font-extrabold tracking-tight">+$12,450</p>
+<div class="flex items-center gap-1 text-success text-xs font-bold">
+<span class="material-symbols-outlined text-xs">trending_up</span>
+<span>+12.4%</span>
+</div>
+</div>
+<div class="min-w-[160px] flex-1 flex flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm">
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest">Win Rate %</p>
+<p class="text-2xl font-extrabold tracking-tight">68.5%</p>
+<div class="flex items-center gap-1 text-success text-xs font-bold">
+<span class="material-symbols-outlined text-xs">arrow_upward</span>
+<span>+2.1%</span>
+</div>
+</div>
+<div class="min-w-[160px] flex-1 flex flex-col gap-2 rounded-xl p-5 bg-card-light dark:bg-card-dark border border-gray-200 dark:border-gray-800 shadow-sm">
+<p class="text-gray-500 dark:text-gray-400 text-xs font-bold uppercase tracking-widest">Avg R:R</p>
+<p class="text-2xl font-extrabold tracking-tight">1:2.4</p>
+<div class="flex items-center gap-1 text-danger text-xs font-bold">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+<span>-0.2%</span>
+</div>
+</div>
+</div>
+<!-- Filter Toggle -->
+<div class="px-4 py-2">
+<div class="flex h-11 items-center justify-center rounded-xl bg-gray-200 dark:bg-card-dark p-1 border border-gray-300 dark:border-gray-800">
+<label class="flex cursor-pointer h-full grow items-center justify-center rounded-lg px-2 has-[:checked]:bg-primary has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-bold transition-all">
+<span class="truncate">Manual Only</span>
+<input class="hidden" name="filter" type="radio" value="Manual"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center rounded-lg px-2 has-[:checked]:bg-primary has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-bold transition-all">
+<span class="truncate">Copy Only</span>
+<input class="hidden" name="filter" type="radio" value="Copy"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center rounded-lg px-2 has-[:checked]:bg-primary has-[:checked]:text-white text-gray-500 dark:text-gray-400 text-sm font-bold transition-all">
+<span class="truncate">Combined</span>
+<input checked="" class="hidden" name="filter" type="radio" value="Combined"/>
+</label>
+</div>
+</div>
+<!-- Chart Section -->
+<div class="mt-4 px-4">
+<div class="bg-card-light dark:bg-card-dark rounded-2xl border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-extrabold tracking-tight">Equity Curve</h3>
+<div class="flex gap-1 p-1 bg-gray-100 dark:bg-background-dark rounded-lg">
+<div class="px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-md">7D</div>
+<div class="px-3 py-1 text-gray-500 text-[10px] font-bold rounded-md">30D</div>
+<div class="px-3 py-1 text-gray-500 text-[10px] font-bold rounded-md">90D</div>
+<div class="px-3 py-1 text-gray-500 text-[10px] font-bold rounded-md">ALL</div>
+</div>
+</div>
+<!-- Chart Placeholder -->
+<div class="relative h-48 w-full flex flex-col justify-end">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<span class="text-xs font-mono uppercase tracking-widest">Visualization Engine Active</span>
+</div>
+<!-- Mock Line Chart Path -->
+<svg class="w-full h-full" viewbox="0 0 400 150">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#008f77" stop-opacity="0.5"></stop>
+<stop offset="100%" stop-color="#008f77" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 130 C 50 120, 80 140, 120 100 S 180 30, 240 60 S 320 10, 400 40 L 400 150 L 0 150 Z" fill="url(#chartGradient)"></path>
+<path d="M0 130 C 50 120, 80 140, 120 100 S 180 30, 240 60 S 320 10, 400 40" fill="none" stroke="#008f77" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="400" cy="40" fill="#008f77" r="4"></circle>
+</svg>
+<div class="flex justify-between mt-4 text-[10px] font-bold text-gray-400 uppercase tracking-tighter">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span>Sun</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Trades -->
+<div class="mt-8 px-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-extrabold tracking-tight">Recent Trades</h3>
+<button class="text-primary text-xs font-bold uppercase flex items-center gap-1">
+                    View All <span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Trade Row 1 -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 flex items-center justify-center rounded-lg bg-success/10 text-success">
+<span class="material-symbols-outlined font-bold">trending_up</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-extrabold">XAUUSD</span>
+<span class="bg-success text-white text-[9px] font-black px-1.5 py-0.5 rounded">BUY</span>
+</div>
+<div class="text-[10px] text-gray-500 font-bold uppercase tracking-tight">Entry 2042.45 • Exit 2055.10</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-extrabold text-success">+$1,245.50</p>
+<div class="flex justify-end gap-1 mt-1">
+<span class="bg-gray-100 dark:bg-background-dark text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-700">Copied: AlphaTrade</span>
+</div>
+</div>
+</div>
+<!-- Trade Row 2 -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 flex items-center justify-center rounded-lg bg-danger/10 text-danger">
+<span class="material-symbols-outlined font-bold">trending_down</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-extrabold">EURUSD</span>
+<span class="bg-danger text-white text-[9px] font-black px-1.5 py-0.5 rounded">SELL</span>
+</div>
+<div class="text-[10px] text-gray-500 font-bold uppercase tracking-tight">Entry 1.0845 • Exit 1.0890</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-extrabold text-danger">-$420.00</p>
+<div class="flex justify-end gap-1 mt-1">
+<span class="bg-gray-100 dark:bg-background-dark text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-700 uppercase tracking-tight">Manual</span>
+</div>
+</div>
+</div>
+<!-- Trade Row 3 -->
+<div class="bg-card-light dark:bg-card-dark rounded-xl border border-gray-200 dark:border-gray-800 p-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 flex items-center justify-center rounded-lg bg-success/10 text-success">
+<span class="material-symbols-outlined font-bold">trending_up</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-extrabold">BTCUSD</span>
+<span class="bg-success text-white text-[9px] font-black px-1.5 py-0.5 rounded">BUY</span>
+</div>
+<div class="text-[10px] text-gray-500 font-bold uppercase tracking-tight">Entry 64,200 • Exit 65,800</div>
+</div>
+</div>
+<div class="text-right">
+<p class="font-extrabold text-success">+$2,100.20</p>
+<div class="flex justify-end gap-1 mt-1">
+<span class="bg-gray-100 dark:bg-background-dark text-gray-500 text-[9px] font-bold px-1.5 py-0.5 rounded border border-gray-200 dark:border-gray-700">Copied: WhaleFlow</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 glass-header border-t border-gray-200 dark:border-gray-800 pb-safe">
+<div class="flex justify-around items-center h-16 max-w-lg mx-auto">
+<button class="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">terminal</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Terminal</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Hub</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-primary">
+<span class="material-symbols-outlined font-bold" style="font-variation-settings: 'FILL' 1">monitoring</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Analysis</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">wallet</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Wallet</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">More</span>
+</button>
+</div>
+</nav>
+<script src="../../js/navigation.js"></script>
+</body></html>
