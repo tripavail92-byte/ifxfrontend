@@ -63,10 +63,18 @@
             .mobile-only {
                 display: none !important;
             }
+            /* Ensure bottom nav is hidden on desktop */
+            nav[class*="fixed bottom-0"][class*="md:hidden"] {
+                display: none !important;
+            }
         }
         @media (max-width: 767px) {
             .desktop-only {
                 display: none !important;
+            }
+            /* Ensure bottom nav is visible on mobile */
+            nav[class*="fixed bottom-0"][class*="md:hidden"] {
+                display: flex !important;
             }
         }
     </style>
