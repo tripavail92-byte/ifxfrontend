@@ -2,7 +2,10 @@
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#008f77"/>
 <title>IFX Account Settings</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -59,7 +62,7 @@
     }
   </style>
   </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
 <!-- Top App Bar -->
 <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
 <div class="flex items-center p-4 justify-between max-w-md mx-auto">
@@ -207,30 +210,5 @@
 </div>
 </section>
 </main>
-<!-- Fixed Bottom Navigation (iOS Style) -->
-<nav class="fixed bottom-0 left-0 right-0 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl border-t border-border-dark pb-8 pt-3 px-6 z-50">
-<div class="max-w-md mx-auto flex justify-between items-center">
-<div class="flex flex-col items-center gap-1 text-slate-500">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="text-[10px] font-bold">TERMINAL</span>
-</div>
-<div class="flex flex-col items-center gap-1 text-slate-500">
-<span class="material-symbols-outlined">group</span>
-<span class="text-[10px] font-bold">COPY</span>
-</div>
-<div class="flex flex-col items-center gap-1 text-slate-500">
-<span class="material-symbols-outlined">account_balance_wallet</span>
-<span class="text-[10px] font-bold">WALLET</span>
-</div>
-<div class="flex flex-col items-center gap-1 text-slate-500">
-<span class="material-symbols-outlined">query_stats</span>
-<span class="text-[10px] font-bold">DATA</span>
-</div>
-<div class="flex flex-col items-center gap-1 text-primary">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">settings</span>
-<span class="text-[10px] font-bold">SETTINGS</span>
-</div>
-</div>
-</nav>
 <script src="../../js/navigation.js"></script>
 </body></html>

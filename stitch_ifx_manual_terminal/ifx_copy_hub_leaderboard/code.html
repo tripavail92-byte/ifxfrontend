@@ -2,7 +2,10 @@
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="theme-color" content="#008f77"/>
 <title>IFX Copy Hub Leaderboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
@@ -75,7 +78,7 @@
 </button>
 </nav>
 <!-- Main Content Area -->
-<main class="flex-1 overflow-y-auto pb-32">
+<main class="flex-1 overflow-y-auto pb-20 md:pb-4">
 <!-- Leaderboard Tab Content -->
 <div class="tab-content" id="leaderboard-content">
 <div class="px-4 py-6">
@@ -556,8 +559,8 @@ Stop Copy
 </form>
 </div>
 </div>
-<!-- Persistent Bottom Navigation -->
-<nav class="fixed bottom-0 inset-x-0 glass-panel border-t border-border-dark flex justify-around items-center py-3 px-6 z-[100]">
+<!-- Persistent Bottom Navigation - Mobile Only -->
+<nav class="fixed bottom-0 inset-x-0 glass-panel border-t border-border-dark flex justify-around items-center py-3 px-6 z-[100] md:hidden">
 <button class="flex flex-col items-center gap-1 text-slate-500">
 <span class="material-symbols-outlined">grid_view</span>
 <span class="text-[10px] font-bold uppercase">Markets</span>
