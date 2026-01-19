@@ -64,18 +64,20 @@
 </header>
 <!-- Tabs Navigation -->
 <nav class="px-4 py-2 flex border-b border-border-dark overflow-x-auto no-scrollbar gap-6">
-<a class="flex flex-col items-center justify-center border-b-2 border-primary pb-3 pt-2" href="#">
+<button class="tab-btn flex flex-col items-center justify-center border-b-2 border-primary pb-3 pt-2" data-tab="leaderboard">
 <p class="text-sm font-bold text-white whitespace-nowrap">Leaderboard</p>
-</a>
-<a class="flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" href="#">
+</button>
+<button class="tab-btn flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" data-tab="portfolio">
 <p class="text-sm font-bold whitespace-nowrap">My Portfolio</p>
-</a>
-<a class="flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" href="#">
+</button>
+<button class="tab-btn flex flex-col items-center justify-center border-b-2 border-transparent pb-3 pt-2 text-slate-500" data-tab="activity">
 <p class="text-sm font-bold whitespace-nowrap">Activity</p>
-</a>
+</button>
 </nav>
 <!-- Main Content Area -->
 <main class="flex-1 overflow-y-auto pb-32">
+<!-- Leaderboard Tab Content -->
+<div class="tab-content" id="leaderboard-content">
 <div class="px-4 py-6">
 <div class="flex items-center justify-between mb-4">
 <h2 class="text-xl font-bold">Master Traders</h2>
@@ -126,7 +128,7 @@
 <div class="w-2 h-2 rounded-full bg-slate-700"></div>
 </div>
 </div>
-<button class="bg-primary hover:bg-primary/90 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors">
+<button class="bg-primary hover:bg-primary/90 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors view-profile-btn" data-trader="AlphaTrader">
                             View Profile
                         </button>
 </div>
@@ -174,7 +176,7 @@
 <div class="w-2 h-2 rounded-full bg-slate-700"></div>
 </div>
 </div>
-<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg">
+<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg hover:bg-primary/30 transition-colors view-profile-btn" data-trader="QuantEdge">
                             View Profile
                         </button>
 </div>
@@ -221,7 +223,7 @@
 <div class="w-2 h-2 rounded-full bg-slate-700"></div>
 </div>
 </div>
-<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg">
+<button class="bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-4 rounded-lg hover:bg-primary/30 transition-colors view-profile-btn" data-trader="QuantEdge">
                             View Profile
                         </button>
 </div>
@@ -234,9 +236,247 @@
                 </p>
 </div>
 </div>
+</div>
+
+<!-- My Portfolio Tab Content -->
+<div class="tab-content hidden" id="portfolio-content">
+<div class="px-4 py-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">My Copy Portfolio</h2>
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Active Copies</span>
+</div>
+<!-- Portfolio Summary Card -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4 mb-4">
+<div class="flex items-center justify-between mb-4">
+<div>
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Total Equity</p>
+<p class="text-2xl font-extrabold text-white">$12,450.00</p>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Total PnL</p>
+<p class="text-xl font-extrabold text-success">+$1,245.50</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 pt-4 border-t border-border-dark">
+<div class="text-center">
+<p class="text-white font-bold text-sm">3</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Active</p>
+</div>
+<div class="text-center border-x border-slate-800">
+<p class="text-white font-bold text-sm">8.2%</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Avg ROI</p>
+</div>
+<div class="text-center">
+<p class="text-white font-bold text-sm">142</p>
+<p class="text-[10px] text-slate-500 font-bold uppercase">Total Trades</p>
+</div>
+</div>
+</div>
+<!-- Active Copy Cards -->
+<div class="space-y-4">
+<!-- Copy 1 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-bold text-white">AlphaTrader</h3>
+<p class="text-[9px] text-slate-500">Copying since Oct 15, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-success text-sm font-extrabold">+12.5%</p>
+<p class="text-[9px] text-slate-500">ROI</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Allocated</p>
+<p class="text-sm font-bold text-white">$5,000.00</p>
+</div>
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Current Value</p>
+<p class="text-sm font-bold text-success">$5,625.00</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-primary/30 transition-colors">
+Manage
+</button>
+<button class="flex-1 bg-danger/20 text-danger border border-danger/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-danger/30 transition-colors">
+Stop Copy
+</button>
+</div>
+</div>
+<!-- Copy 2 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-bold text-white">QuantEdge</h3>
+<p class="text-[9px] text-slate-500">Copying since Oct 20, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-success text-sm font-extrabold">+4.2%</p>
+<p class="text-[9px] text-slate-500">ROI</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Allocated</p>
+<p class="text-sm font-bold text-white">$3,000.00</p>
+</div>
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Current Value</p>
+<p class="text-sm font-bold text-success">$3,126.00</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-primary/30 transition-colors">
+Manage
+</button>
+<button class="flex-1 bg-danger/20 text-danger border border-danger/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-danger/30 transition-colors">
+Stop Copy
+</button>
+</div>
+</div>
+<!-- Copy 3 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<h3 class="font-bold text-white">CryptoWhale</h3>
+<p class="text-[9px] text-slate-500">Copying since Oct 22, 2024</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-success text-sm font-extrabold">+2.8%</p>
+<p class="text-[9px] text-slate-500">ROI</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Allocated</p>
+<p class="text-sm font-bold text-white">$4,450.00</p>
+</div>
+<div>
+<p class="text-[9px] text-slate-500 uppercase mb-1">Current Value</p>
+<p class="text-sm font-bold text-success">$4,574.60</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary/20 text-primary border border-primary/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-primary/30 transition-colors">
+Manage
+</button>
+<button class="flex-1 bg-danger/20 text-danger border border-danger/30 text-xs font-bold py-2 px-3 rounded-lg hover:bg-danger/30 transition-colors">
+Stop Copy
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Activity Tab Content -->
+<div class="tab-content hidden" id="activity-content">
+<div class="px-4 py-6">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold">Copy Activity</h2>
+<div class="flex gap-2">
+<button class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded">All</button>
+<button class="text-[10px] font-bold text-slate-500 px-2 py-1 rounded">Today</button>
+<button class="text-[10px] font-bold text-slate-500 px-2 py-1 rounded">Week</button>
+</div>
+</div>
+<!-- Activity List -->
+<div class="space-y-3">
+<!-- Activity Item 1 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-success">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-bold text-white">Copied Trade: BTC/USD BUY</p>
+<p class="text-[9px] text-slate-500">From AlphaTrader • 2 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+$125.50</p>
+<p class="text-[9px] text-slate-500">Closed</p>
+</div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">sync</span>
+</div>
+<div>
+<p class="text-xs font-bold text-white">Copy Started</p>
+<p class="text-[9px] text-slate-500">QuantEdge • 5 hours ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-primary">$3,000</p>
+<p class="text-[9px] text-slate-500">Allocated</p>
+</div>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-success">trending_up</span>
+</div>
+<div>
+<p class="text-xs font-bold text-white">Copied Trade: EUR/USD SELL</p>
+<p class="text-[9px] text-slate-500">From CryptoWhale • 1 day ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-success">+$45.20</p>
+<p class="text-[9px] text-slate-500">Closed</p>
+</div>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="bg-surface-dark border border-border-dark rounded-xl p-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-warning/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-warning">warning</span>
+</div>
+<div>
+<p class="text-xs font-bold text-white">Max Drawdown Reached</p>
+<p class="text-[9px] text-slate-500">AlphaTrader copy paused • 2 days ago</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-extrabold text-warning">15.0%</p>
+<p class="text-[9px] text-slate-500">DD Limit</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </main>
 <!-- Settings & Execution Modal (Drawer Concept) -->
-<div class="fixed inset-x-0 bottom-0 z-[60] glass-panel rounded-t-3xl shadow-2xl border-t border-slate-800">
+<div class="fixed inset-x-0 bottom-0 z-[60] glass-panel rounded-t-3xl shadow-2xl border-t border-slate-800 hidden" id="copy-modal">
 <!-- Handle -->
 <div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto my-3"></div>
 <div class="px-6 pb-10 pt-2 h-[70vh] overflow-y-auto no-scrollbar">
@@ -245,7 +485,7 @@
 <h2 class="text-xl font-extrabold text-white">Copy AlphaTrader</h2>
 <p class="text-xs text-slate-400 font-bold uppercase">Setup Copy Parameters</p>
 </div>
-<button class="material-symbols-outlined text-slate-400">close</button>
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-colors cursor-pointer" id="close-modal-btn">close</button>
 </div>
 <!-- Equity Curve Placeholder -->
 <div class="mb-6 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 p-2 h-32 relative">
@@ -336,4 +576,182 @@
 </button>
 </nav>
 <script src="../../js/navigation.js"></script>
+<script>
+// Tab Switching Functionality
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Update button states
+                tabButtons.forEach(b => {
+                    b.classList.remove('border-primary', 'text-white');
+                    b.classList.add('border-transparent', 'text-slate-500');
+                    b.querySelector('p').classList.remove('text-white');
+                    b.querySelector('p').classList.add('text-slate-500');
+                });
+                
+                this.classList.remove('border-transparent', 'text-slate-500');
+                this.classList.add('border-primary', 'text-white');
+                this.querySelector('p').classList.remove('text-slate-500');
+                this.querySelector('p').classList.add('text-white');
+                
+                // Show/hide content
+                tabContents.forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                const targetContent = document.getElementById(targetTab + '-content');
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+            });
+        });
+    });
+})();
+
+// Copy Modal Functionality
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('copy-modal');
+        const viewProfileBtns = document.querySelectorAll('.view-profile-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const startCopyBtn = modal?.querySelector('button[type="button"]');
+        
+        // Open modal when View Profile is clicked
+        viewProfileBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const traderName = this.getAttribute('data-trader');
+                if (modal) {
+                    const title = modal.querySelector('h2');
+                    if (title) {
+                        title.textContent = `Copy ${traderName}`;
+                    }
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+        
+        // Close modal
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                if (modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Close modal when clicking outside
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Start Copying button
+        if (startCopyBtn) {
+            startCopyBtn.addEventListener('click', function() {
+                alert('Copy trading started! This would connect to the trader in a real application.');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Copy Mode Toggle
+        const copyModeBtns = modal?.querySelectorAll('.grid button');
+        if (copyModeBtns) {
+            copyModeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    copyModeBtns.forEach(b => {
+                        b.classList.remove('bg-primary', 'text-white');
+                        b.classList.add('text-slate-400');
+                    });
+                    this.classList.remove('text-slate-400');
+                    this.classList.add('bg-primary', 'text-white');
+                });
+            });
+        }
+    });
+})();
+
+// Search and Filter Buttons
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchBtn = document.querySelector('button .material-symbols-outlined');
+        const filterBtn = document.querySelectorAll('button .material-symbols-outlined')[1];
+        
+        if (searchBtn && searchBtn.parentElement) {
+            searchBtn.parentElement.addEventListener('click', function() {
+                alert('Search functionality - This would open a search dialog in a real application.');
+            });
+        }
+        
+        if (filterBtn && filterBtn.parentElement) {
+            filterBtn.parentElement.addEventListener('click', function() {
+                alert('Filter options - This would open filter settings in a real application.');
+            });
+        }
+    });
+})();
+
+// Portfolio Management Buttons
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const manageBtns = document.querySelectorAll('#portfolio-content button');
+        
+        manageBtns.forEach(btn => {
+            if (btn.textContent.includes('Manage')) {
+                btn.addEventListener('click', function() {
+                    alert('Manage copy settings - This would open copy management in a real application.');
+                });
+            } else if (btn.textContent.includes('Stop Copy')) {
+                btn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to stop copying this trader?')) {
+                        alert('Copy trading stopped successfully.');
+                    }
+                });
+            }
+        });
+    });
+})();
+
+// Activity Filter Buttons
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const activityFilters = document.querySelectorAll('#activity-content button');
+        
+        activityFilters.forEach(btn => {
+            btn.addEventListener('click', function() {
+                activityFilters.forEach(b => {
+                    b.classList.remove('text-primary', 'bg-primary/10');
+                    b.classList.add('text-slate-500');
+                });
+                this.classList.remove('text-slate-500');
+                this.classList.add('text-primary', 'bg-primary/10');
+            });
+        });
+    });
+})();
+</script>
 </body></html>
