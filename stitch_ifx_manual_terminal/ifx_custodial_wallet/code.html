@@ -309,6 +309,9 @@
 </button>
 </nav>
 <script src="../../js/navigation.js"></script>
+<script src="../../js/toast.js"></script>
+<script src="../../js/storage.js"></script>
+<script src="../../js/loading.js"></script>
 <script>
 // Wallet Page Interactive Features
 (function() {
@@ -374,16 +377,9 @@
             copyBtn.addEventListener('click', function() {
                 const fullAddress = this.getAttribute('data-address');
                 navigator.clipboard.writeText(fullAddress).then(() => {
-                    const icon = this.querySelector('.material-symbols-outlined');
-                    const originalText = icon.textContent;
-                    icon.textContent = 'check';
-                    icon.style.color = '#34d399';
-                    setTimeout(() => {
-                        icon.textContent = originalText;
-                        icon.style.color = '';
-                    }, 2000);
+                    Toast.success('Wallet address copied to clipboard!');
                 }).catch(() => {
-                    alert('Address: ' + fullAddress);
+                    Toast.error('Failed to copy. Address: ' + fullAddress);
                 });
             });
         }
@@ -404,11 +400,14 @@
             withdrawBtn.addEventListener('click', function() {
                 const amount = withdrawalInput?.value || '0';
                 if (parseFloat(amount) > 0) {
-                    if (confirm(`Withdraw $${amount}?`)) {
-                        alert('Withdrawal request submitted successfully!');
-                    }
+                    Loading.button(this, true);
+                    setTimeout(() => {
+                        Loading.button(this, false);
+                        Toast.success(`Withdrawal request for $${amount} submitted successfully!`);
+                        withdrawalInput.value = '';
+                    }, 1500);
                 } else {
-                    alert('Please enter a withdrawal amount.');
+                    Toast.error('Please enter a withdrawal amount.');
                 }
             });
         }
@@ -417,7 +416,7 @@
         const viewAllBtn = document.querySelector('.view-all-btn');
         if (viewAllBtn) {
             viewAllBtn.addEventListener('click', function() {
-                alert('Viewing all transactions - This would show full transaction history in a real application.');
+                Toast.info('Loading full transaction history...');
             });
         }
         
@@ -431,11 +430,11 @@
                 input.onchange = function(e) {
                     const file = e.target.files[0];
                     if (file) {
-                        if (file.size > 5 * 1024 * 1024) {
-                            alert('File size must be less than 5MB');
-                        } else {
-                            alert('Receipt uploaded: ' + file.name);
-                        }
+                    if (file.size > 5 * 1024 * 1024) {
+                        Toast.error('File size must be less than 5MB');
+                    } else {
+                        Toast.success('Receipt uploaded: ' + file.name);
+                    }
                     }
                 };
                 input.click();

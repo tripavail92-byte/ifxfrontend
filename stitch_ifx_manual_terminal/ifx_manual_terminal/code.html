@@ -483,6 +483,9 @@
 </button>
 </nav>
 <script src="../../js/navigation.js"></script>
+<script src="../../js/toast.js"></script>
+<script src="../../js/storage.js"></script>
+<script src="../../js/loading.js"></script>
 <script>
 // IFX Coach Safety Conditions Manager
 (function() {
@@ -658,6 +661,49 @@
             riskRewardInput.addEventListener('input', function() {
                 conditions.riskReward.value = parseFloat(this.value) || 0;
                 validateConditions();
+            });
+        }
+        
+        // Load saved preferences
+        const savedSingleActive = Storage.get('singleActiveTrade', 1);
+        const savedDuplicate = Storage.get('duplicatePrevention', 1);
+        const savedRiskReward = Storage.get('riskReward', 1.0);
+        const savedTargetPrice = Storage.get('targetPrice', 64281.40);
+        
+        if (singleActiveSelect && savedSingleActive) {
+            singleActiveSelect.value = savedSingleActive === -1 ? 'unlimited' : savedSingleActive.toString();
+        }
+        if (duplicateSelect && savedDuplicate) {
+            duplicateSelect.value = savedDuplicate === -1 ? 'unlimited' : savedDuplicate.toString();
+        }
+        if (riskRewardInput && savedRiskReward) {
+            riskRewardInput.value = savedRiskReward;
+        }
+        if (targetPriceInput && savedTargetPrice) {
+            targetPriceInput.value = savedTargetPrice;
+        }
+        
+        // Save preferences on change
+        if (singleActiveSelect) {
+            singleActiveSelect.addEventListener('change', function() {
+                const value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                Storage.set('singleActiveTrade', value);
+            });
+        }
+        if (duplicateSelect) {
+            duplicateSelect.addEventListener('change', function() {
+                const value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                Storage.set('duplicatePrevention', value);
+            });
+        }
+        if (riskRewardInput) {
+            riskRewardInput.addEventListener('change', function() {
+                Storage.set('riskReward', parseFloat(this.value));
+            });
+        }
+        if (targetPriceInput) {
+            targetPriceInput.addEventListener('change', function() {
+                Storage.set('targetPrice', parseFloat(this.value));
             });
         }
         
