@@ -707,6 +707,67 @@
             });
         }
         
+        // Place Trade button action
+        const placeTradeBtn = document.getElementById('place-trade-btn');
+        if (placeTradeBtn) {
+            placeTradeBtn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    Loading.button(this, true);
+                    setTimeout(() => {
+                        Loading.button(this, false);
+                        Toast.success('Trade placed successfully!');
+                    }, 1500);
+                }
+            });
+        }
+        
+        // Load saved preferences
+        const savedSingleActive = Storage.get('singleActiveTrade', 1);
+        const savedDuplicate = Storage.get('duplicatePrevention', 1);
+        const savedRiskReward = Storage.get('riskReward', 1.0);
+        const savedTargetPrice = Storage.get('targetPrice', 64281.40);
+        
+        if (singleActiveSelect && savedSingleActive) {
+            singleActiveSelect.value = savedSingleActive === -1 ? 'unlimited' : savedSingleActive.toString();
+        }
+        if (duplicateSelect && savedDuplicate) {
+            duplicateSelect.value = savedDuplicate === -1 ? 'unlimited' : savedDuplicate.toString();
+        }
+        if (riskRewardInput && savedRiskReward) {
+            riskRewardInput.value = savedRiskReward;
+        }
+        if (targetPriceInput && savedTargetPrice) {
+            targetPriceInput.value = savedTargetPrice;
+        }
+        
+        // Save preferences on change
+        if (singleActiveSelect) {
+            const originalHandler = singleActiveSelect.onchange;
+            singleActiveSelect.addEventListener('change', function() {
+                const value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                Storage.set('singleActiveTrade', value);
+                if (originalHandler) originalHandler.call(this);
+            });
+        }
+        if (duplicateSelect) {
+            const originalHandler = duplicateSelect.onchange;
+            duplicateSelect.addEventListener('change', function() {
+                const value = this.value === 'unlimited' ? -1 : parseInt(this.value);
+                Storage.set('duplicatePrevention', value);
+                if (originalHandler) originalHandler.call(this);
+            });
+        }
+        if (riskRewardInput) {
+            riskRewardInput.addEventListener('change', function() {
+                Storage.set('riskReward', parseFloat(this.value));
+            });
+        }
+        if (targetPriceInput) {
+            targetPriceInput.addEventListener('change', function() {
+                Storage.set('targetPrice', parseFloat(this.value));
+            });
+        }
+        
         // Initial validation
         validateConditions();
     });
