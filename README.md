@@ -23,14 +23,17 @@
 
 ### Option 2: Local Server (Recommended)
 ```bash
-# Using Python 3
-python -m http.server 8000
+# Install dependencies
+npm install
 
-# Using Node.js (if you have http-server installed)
-npx http-server -p 8000
+# Start the server
+npm start
 
-# Then open: http://localhost:8000
+# Then open: http://localhost:3000
 ```
+
+### Option 3: Deploy to Railway
+The project is ready for Railway deployment. See [Deployment](#-deployment) section below.
 
 ## ✨ Features
 
@@ -235,12 +238,76 @@ stitch_ifx_manual_terminal/
 - **Material Icons**: Google Material Symbols
 - **Responsive Grid**: Tailwind CSS grid system
 
+## 🚂 Deployment
+
+### Railway Deployment
+
+This project is configured for easy deployment on Railway.
+
+#### Prerequisites
+- Railway account (sign up at [railway.app](https://railway.app))
+- GitHub repository connected
+
+#### Deployment Steps
+
+1. **Connect Repository to Railway**
+   - Go to [Railway Dashboard](https://railway.app/dashboard)
+   - Click "New Project"
+   - Select "Deploy from GitHub repo"
+   - Choose your repository: `tripavail92-byte/ifxfrontend`
+
+2. **Configure Project**
+   - Project Name: `ifxtrading` (or your preferred name)
+   - Railway will automatically detect the Node.js setup
+
+3. **Deploy**
+   - Railway will automatically:
+     - Install dependencies (`npm install`)
+     - Build the project
+     - Start the server (`npm start`)
+   - Your app will be live at: `https://your-app-name.railway.app`
+
+4. **Environment Variables** (Optional)
+   - No environment variables required for basic deployment
+   - PORT is automatically set by Railway
+
+#### Railway Configuration Files
+- `package.json` - Node.js dependencies and scripts
+- `server.js` - Express server for serving static files
+- `railway.json` - Railway deployment configuration
+- `railway.toml` - Alternative Railway configuration
+- `Procfile` - Process file for Railway
+
+#### Custom Domain (Optional)
+1. Go to your Railway project settings
+2. Click "Settings" → "Domains"
+3. Add your custom domain
+4. Railway will provide DNS configuration
+
+#### Monitoring
+- Check deployment logs in Railway dashboard
+- Monitor uptime and performance
+- View real-time logs: `railway logs`
+
+### Local Development
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm start
+
+# Server runs on http://localhost:3000
+```
+
 ## 🔧 Technical Details
 
 ### Technologies Used
 - **HTML5**: Semantic markup
 - **Tailwind CSS**: Utility-first CSS framework (via CDN)
 - **JavaScript**: Vanilla JS for navigation
+- **Chart.js**: Interactive charting library
+- **Express.js**: Node.js web server for deployment
 - **Material Icons**: Icon library
 - **Google Fonts**: Manrope font family
 
