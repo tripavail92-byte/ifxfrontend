@@ -49,6 +49,18 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        @media (min-width: 768px) {
+            /* Ensure bottom nav is hidden on desktop */
+            nav[class*="fixed bottom-0"][class*="md:hidden"] {
+                display: none !important;
+            }
+        }
+        @media (max-width: 767px) {
+            /* Ensure bottom nav is visible on mobile */
+            nav[class*="fixed bottom-0"][class*="md:hidden"] {
+                display: flex !important;
+            }
+        }
     </style>
 <style>
     body {
@@ -119,20 +131,20 @@
 <!-- Actions Tabbed Interface -->
 <section class="mt-4 px-4">
 <div class="bg-slate-200 dark:bg-white/5 p-1 rounded-xl flex">
-<button class="flex-1 py-2.5 text-sm font-bold rounded-lg bg-white dark:bg-surface-dark shadow-sm text-primary transition-all">Deposit</button>
-<button class="flex-1 py-2.5 text-sm font-bold rounded-lg text-slate-500 dark:text-slate-400 transition-all">Withdrawal</button>
+<button class="tab-action-btn flex-1 py-2.5 text-sm font-bold rounded-lg bg-white dark:bg-surface-dark shadow-sm text-primary transition-all" data-action="deposit">Deposit</button>
+<button class="tab-action-btn flex-1 py-2.5 text-sm font-bold rounded-lg text-slate-500 dark:text-slate-400 transition-all" data-action="withdrawal">Withdrawal</button>
 </div>
 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
 <!-- Deposit Column -->
-<div class="space-y-6">
+<div class="action-content space-y-6" id="deposit-content">
 <div>
 <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
 <span class="material-symbols-outlined text-primary text-lg">currency_bitcoin</span>
                             Crypto Deposit
                         </h3>
 <div class="flex gap-2 p-1 bg-slate-200 dark:bg-white/5 rounded-lg mb-4">
-<button class="flex-1 py-1.5 text-xs font-bold rounded-md bg-primary text-white">USDT (TRC20)</button>
-<button class="flex-1 py-1.5 text-xs font-bold rounded-md text-slate-500">USDT (ERC20)</button>
+<button class="network-btn flex-1 py-1.5 text-xs font-bold rounded-md bg-primary text-white" data-network="TRC20">USDT (TRC20)</button>
+<button class="network-btn flex-1 py-1.5 text-xs font-bold rounded-md text-slate-500" data-network="ERC20">USDT (ERC20)</button>
 </div>
 <div class="glass-card rounded-2xl p-6 flex flex-col items-center gap-4">
 <div class="bg-white p-3 rounded-xl">
@@ -141,8 +153,8 @@
 <div class="w-full">
 <p class="text-[10px] text-center text-slate-500 uppercase mb-2">Your Deposit Address</p>
 <div class="flex items-center gap-2 bg-slate-100 dark:bg-black/20 p-3 rounded-lg border border-white/5">
-<code class="text-xs flex-1 truncate font-mono text-primary">TPh1zJ7V...vQ8zMh</code>
-<button class="text-primary hover:text-accent-teal transition-colors">
+<code class="text-xs flex-1 truncate font-mono text-primary" id="wallet-address">TPh1zJ7V...vQ8zMh</code>
+<button class="text-primary hover:text-accent-teal transition-colors copy-address-btn" data-address="TPh1zJ7V8k9mN2pQ3rS4tU5vW6xY7zA8bC9dE0fG1hI2jK3lM4nO5pQ6rS7tU8vQ9zMh">
 <span class="material-symbols-outlined text-lg">content_copy</span>
 </button>
 </div>
@@ -161,16 +173,16 @@
 </div>
 </div>
 </div>
-<!-- Withdrawal Column (Simplified for display) -->
-<div class="space-y-6">
+<!-- Withdrawal Column -->
+<div class="action-content space-y-6 hidden md:block" id="withdrawal-content">
 <div class="glass-card rounded-2xl p-6 border-t-2 border-t-primary">
 <h3 class="text-sm font-bold mb-4">Request Withdrawal</h3>
 <div class="space-y-4">
 <div class="space-y-2">
 <label class="text-[10px] font-bold text-slate-500 uppercase">Amount to Withdraw</label>
 <div class="relative">
-<input class="w-full bg-slate-100 dark:bg-black/20 border-white/10 rounded-xl py-3 px-4 focus:ring-primary focus:border-primary text-lg font-bold" placeholder="0.00" type="number"/>
-<button class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded">MAX</button>
+<input class="w-full bg-slate-100 dark:bg-black/20 border-white/10 rounded-xl py-3 px-4 focus:ring-primary focus:border-primary text-lg font-bold" placeholder="0.00" type="number" id="withdrawal-amount"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded hover:bg-primary/20 transition-colors cursor-pointer" id="max-withdrawal-btn">MAX</button>
 </div>
 </div>
 <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
@@ -182,7 +194,7 @@
                                     Your free margin is <span class="text-primary font-bold">$4,250.00</span>. Maximum withdrawal allowed without affecting open positions.
                                 </p>
 </div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 withdraw-btn">
 <span class="material-symbols-outlined text-lg">send</span>
                                 Withdraw Funds
                             </button>
@@ -195,7 +207,7 @@
 <section class="mt-10 px-4">
 <div class="flex items-center justify-between mb-4">
 <h3 class="text-lg font-extrabold tracking-tight">Recent Activity</h3>
-<button class="text-xs font-bold text-primary">View All</button>
+<button class="text-xs font-bold text-primary hover:text-primary/80 transition-colors view-all-btn">View All</button>
 </div>
 <div class="glass-card rounded-2xl overflow-hidden">
 <div class="overflow-x-auto">
@@ -297,4 +309,164 @@
 </button>
 </nav>
 <script src="../../js/navigation.js"></script>
+<script>
+// Wallet Page Interactive Features
+(function() {
+    'use strict';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Deposit/Withdrawal Tab Switching
+        const tabButtons = document.querySelectorAll('.tab-action-btn');
+        const tabContents = document.querySelectorAll('.action-content');
+        
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+                
+                // Update button states
+                tabButtons.forEach(b => {
+                    b.classList.remove('bg-white', 'dark:bg-surface-dark', 'text-primary', 'shadow-sm');
+                    b.classList.add('text-slate-500', 'dark:text-slate-400');
+                });
+                this.classList.remove('text-slate-500', 'dark:text-slate-400');
+                this.classList.add('bg-white', 'dark:bg-surface-dark', 'text-primary', 'shadow-sm');
+                
+                // Show/hide content
+                tabContents.forEach(content => {
+                    if (content.id === action + '-content') {
+                        content.classList.remove('hidden');
+                        if (window.innerWidth >= 768) {
+                            content.classList.add('md:block');
+                        }
+                    } else {
+                        content.classList.add('hidden');
+                        content.classList.remove('md:block');
+                    }
+                });
+            });
+        });
+        
+        // Network Selection (TRC20/ERC20)
+        const networkBtns = document.querySelectorAll('.network-btn');
+        networkBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                networkBtns.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('text-slate-500');
+                });
+                this.classList.remove('text-slate-500');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // Update wallet address based on network (mock)
+                const addressEl = document.getElementById('wallet-address');
+                if (addressEl) {
+                    const network = this.getAttribute('data-network');
+                    addressEl.textContent = network === 'TRC20' 
+                        ? 'TPh1zJ7V...vQ8zMh' 
+                        : '0x8f9A...vQ8zMh';
+                }
+            });
+        });
+        
+        // Copy Wallet Address
+        const copyBtn = document.querySelector('.copy-address-btn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function() {
+                const fullAddress = this.getAttribute('data-address');
+                navigator.clipboard.writeText(fullAddress).then(() => {
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    const originalText = icon.textContent;
+                    icon.textContent = 'check';
+                    icon.style.color = '#34d399';
+                    setTimeout(() => {
+                        icon.textContent = originalText;
+                        icon.style.color = '';
+                    }, 2000);
+                }).catch(() => {
+                    alert('Address: ' + fullAddress);
+                });
+            });
+        }
+        
+        // MAX Withdrawal Button
+        const maxBtn = document.getElementById('max-withdrawal-btn');
+        const withdrawalInput = document.getElementById('withdrawal-amount');
+        if (maxBtn && withdrawalInput) {
+            maxBtn.addEventListener('click', function() {
+                withdrawalInput.value = '4250.00';
+                withdrawalInput.dispatchEvent(new Event('input'));
+            });
+        }
+        
+        // Withdraw Funds Button
+        const withdrawBtn = document.querySelector('.withdraw-btn');
+        if (withdrawBtn) {
+            withdrawBtn.addEventListener('click', function() {
+                const amount = withdrawalInput?.value || '0';
+                if (parseFloat(amount) > 0) {
+                    if (confirm(`Withdraw $${amount}?`)) {
+                        alert('Withdrawal request submitted successfully!');
+                    }
+                } else {
+                    alert('Please enter a withdrawal amount.');
+                }
+            });
+        }
+        
+        // View All Button
+        const viewAllBtn = document.querySelector('.view-all-btn');
+        if (viewAllBtn) {
+            viewAllBtn.addEventListener('click', function() {
+                alert('Viewing all transactions - This would show full transaction history in a real application.');
+            });
+        }
+        
+        // Upload Receipt
+        const uploadArea = document.querySelector('.border-dashed');
+        if (uploadArea) {
+            uploadArea.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*,.pdf';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        if (file.size > 5 * 1024 * 1024) {
+                            alert('File size must be less than 5MB');
+                        } else {
+                            alert('Receipt uploaded: ' + file.name);
+                        }
+                    }
+                };
+                input.click();
+            });
+        }
+        
+        // Bottom Navigation Buttons
+        const bottomNavBtns = document.querySelectorAll('nav button');
+        bottomNavBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const text = this.textContent.toLowerCase().trim();
+                if (text.includes('home')) {
+                    window.location.href = '../../index.html';
+                } else if (text.includes('wallet')) {
+                    // Already on wallet page
+                } else if (text.includes('trades')) {
+                    window.location.href = '../ifx_performance_dashboard/code.html';
+                } else if (text.includes('settings')) {
+                    window.location.href = '../ifx_account_settings/code.html';
+                }
+            });
+        });
+        
+        // Center button (sync/transfer)
+        const centerBtn = document.querySelector('.relative button');
+        if (centerBtn) {
+            centerBtn.addEventListener('click', function() {
+                alert('Quick Transfer - This would open a transfer dialog in a real application.');
+            });
+        }
+    });
+})();
+</script>
 </body></html>
